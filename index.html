@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+content="#07111f">
+
+<title>
+GeoPrecision Pro Ultra
+</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+<link rel="icon"
+type="image/png"
+href="assets/icon.png">
+
+<link rel="apple-touch-icon"
+href="assets/icon.png">
+
+<link rel="manifest"
+href="manifest.json">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.2/proj4.js"></script>
+
+</head>
+
+<body>
+
+<!-- SPLASH -->
+
+<div id="splash">
+
+<img
+src="assets/splash.png"
+class="splash-full">
+
+</div>
+
+<!-- MAIN -->
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="topbar">
+
+<div class="header-banner">
+
+<img
+src="assets/header.png"
+alt="GeoPrecision Header">
+
+<div class="floating-actions">
+
+<button class="theme-btn"
+onclick="toggleTheme()">
+
+<i class="fa-solid fa-moon"></i>
+
+</button>
+
+<button class="save-btn"
+onclick="saveProject()">
+
+<i class="fa-solid fa-floppy-disk"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CONVERTER -->
+
+<div class="card">
+
+<h2>
+
+<i class="fa-solid fa-compass"></i>
+
+Smart Coordinate Converter
+
+</h2>
+
+<!-- FROM / TO -->
+
+<div class="conversion-grid">
+
+<div class="convert-card">
+
+<div class="convert-icon">
+
+<i class="fa-solid fa-right-to-bracket"></i>
+
+</div>
+
+<label class="convert-label">
+
+Convert From
+
+</label>
+
+<select id="fromType">
+
+<option value="decimal">
+
+Decimal
+
+</option>
+
+<option value="dms">
+
+DMS
+
+</option>
+
+<option value="utm">
+
+UTM
+
+</select>
+
+</div>
+
+<div class="convert-card">
+
+<div class="convert-icon">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+</div>
+
+<label class="convert-label">
+
+Convert To
+
+</label>
+
+<select id="toType">
+
+<option value="decimal">
+
+Decimal
+
+</option>
+
+<option value="dms">
+
+DMS
+
+</option>
+
+<option value="utm">
+
+UTM
+
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<!-- DECIMAL INPUT -->
+
+<div id="decimalInputSection">
+
+<div class="decimal-grid">
+
+<div>
+
+<label>
+Latitude
+</label>
+
+<input
+type="number"
+id="decimalLat"
+step="any"
+placeholder="Latitude">
+
+</div>
+
+<div>
+
+<label>
+Longitude
+</label>
+
+<input
+type="number"
+id="decimalLon"
+step="any"
+placeholder="Longitude">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DMS INPUT -->
+
+<div id="dmsInputSection"
+style="display:none;">
+
+<label>
+Latitude DMS
+</label>
+
+<div class="dms-grid">
+
+<input type="number"
+id="latDeg"
+placeholder="Deg">
+
+<input type="number"
+id="latMin"
+placeholder="Min">
+
+<input type="number"
+id="latSec"
+placeholder="Sec">
+
+<select
+id="latDir"
+class="direction-select">
+
+<option>N</option>
+
+<option>S</option>
+
+</select>
+
+</div>
+
+<label>
+Longitude DMS
+</label>
+
+<div class="dms-grid">
+
+<input type="number"
+id="lonDeg"
+placeholder="Deg">
+
+<input type="number"
+id="lonMin"
+placeholder="Min">
+
+<input type="number"
+id="lonSec"
+placeholder="Sec">
+
+<select
+id="lonDir"
+class="direction-select">
+
+<option>E</option>
+
+<option>W</option>
+
+</select>
+
+</div>
+
+</div>
+
+<!-- UTM INPUT -->
+
+<div id="utmInputSection"
+style="display:none;">
+
+<div class="utm-grid">
+
+<div>
+
+<label>
+UTM Zone
+</label>
+
+<select
+id="utmZone"
+class="zone-select">
+
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+<option value="32">32</option>
+<option value="33">33</option>
+<option value="34">34</option>
+<option value="35">35</option>
+<option value="36" selected>36</option>
+<option value="37">37</option>
+<option value="38">38</option>
+<option value="39">39</option>
+<option value="40">40</option>
+<option value="41">41</option>
+<option value="42">42</option>
+<option value="43">43</option>
+<option value="44">44</option>
+<option value="45">45</option>
+<option value="46">46</option>
+<option value="47">47</option>
+<option value="48">48</option>
+<option value="49">49</option>
+<option value="50">50</option>
+<option value="51">51</option>
+<option value="52">52</option>
+<option value="53">53</option>
+<option value="54">54</option>
+<option value="55">55</option>
+<option value="56">56</option>
+<option value="57">57</option>
+<option value="58">58</option>
+<option value="59">59</option>
+<option value="60">60</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+Hemisphere
+</label>
+
+<select
+id="utmHemisphere"
+class="hemisphere-select">
+
+<option value="N" selected>
+North (N)
+</option>
+
+<option value="S">
+South (S)
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="utm-input-grid">
+
+<div>
+
+<label>
+Easting
+</label>
+
+<input
+type="number"
+id="utmEasting"
+placeholder="Easting">
+
+</div>
+
+<div>
+
+<label>
+Northing
+</label>
+
+<input
+type="number"
+id="utmNorthing"
+placeholder="Northing">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RESULTS -->
+
+<div class="section-title">
+
+<i class="fa-solid fa-check-circle"></i>
+
+Converted Coordinates
+
+</div>
+
+<div class="results-grid">
+
+<!-- DECIMAL RESULT -->
+
+<div class="result-box"
+id="decimalResultBox"
+style="display:none;">
+
+<div class="result-header">
+
+<i class="fa-solid fa-location-crosshairs"></i>
+
+<span>Decimal Coordinates</span>
+
+</div>
+
+<div class="decimal-grid">
+
+<div>
+
+<label>Latitude</label>
+
+<input
+type="text"
+id="decimalLatResult"
+readonly>
+
+</div>
+
+<div>
+
+<label>Longitude</label>
+
+<input
+type="text"
+id="decimalLonResult"
+readonly>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DMS RESULT -->
+
+<div class="result-box"
+id="dmsResultBox"
+style="display:none;">
+
+<div class="result-header">
+
+<i class="fa-solid fa-globe"></i>
+
+<span>DMS Coordinates</span>
+
+</div>
+
+<label>Latitude</label>
+
+<div class="dms-grid">
+
+<input
+type="text"
+id="latDegResult"
+readonly>
+
+<input
+type="text"
+id="latMinResult"
+readonly>
+
+<input
+type="text"
+id="latSecResult"
+readonly>
+
+<input
+type="text"
+id="latDirResult"
+class="direction-select"
+readonly>
+
+</div>
+
+<label>Longitude</label>
+
+<div class="dms-grid">
+
+<input
+type="text"
+id="lonDegResult"
+readonly>
+
+<input
+type="text"
+id="lonMinResult"
+readonly>
+
+<input
+type="text"
+id="lonSecResult"
+readonly>
+
+<input
+type="text"
+id="lonDirResult"
+class="direction-select"
+readonly>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- UTM RESULT -->
+
+<div class="result-box"
+id="utmResultBox"
+style="display:none;">
+
+<div class="result-header">
+
+<i class="fa-solid fa-earth-americas"></i>
+
+<span>UTM Coordinates</span>
+
+</div>
+
+<div class="utm-grid">
+
+<div>
+
+<label>Zone</label>
+
+<input
+type="text"
+id="utmZoneResult"
+class="zone-select"
+readonly>
+
+</div>
+
+<div>
+
+<label>Hemisphere</label>
+
+<input
+type="text"
+id="utmHemisphereResult"
+class="hemisphere-select"
+readonly>
+
+</div>
+
+</div>
+
+<div class="utm-input-grid">
+
+<div>
+
+<label>Easting</label>
+
+<input
+type="text"
+id="utmEastingResult"
+readonly>
+
+</div>
+
+<div>
+
+<label>Northing</label>
+
+<input
+type="text"
+id="utmNorthingResult"
+readonly>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+<button onclick="convertCoordinates()">
+
+<i class="fa-solid fa-rotate"></i>
+
+Convert
+
+</button>
+
+<button onclick="copyResults()">
+
+<i class="fa-solid fa-copy"></i>
+
+Copy
+
+</button>
+
+<button onclick="clearConverter()">
+
+<i class="fa-solid fa-trash"></i>
+
+Clear
+
+</button>
+
+</div>
+
+</div>
+
+<!-- AREA -->
+
+<div class="card">
+
+<h2>
+
+<i class="fa-solid fa-ruler-combined"></i>
+
+Area Calculator
+
+</h2>
+
+<label>
+
+Point Input Type
+
+</label>
+
+<select id="pointInputType">
+
+<option value="decimal">
+
+Decimal
+
+</option>
+
+<option value="dms">
+
+DMS
+
+</option>
+
+<option value="utm">
+
+UTM
+
+</option>
+
+</select>
+
+<!-- DECIMAL -->
+
+<div id="pointDecimalSection">
+
+<div class="decimal-grid">
+
+<div>
+
+<label>
+Latitude
+</label>
+
+<input
+type="number"
+id="pointLat"
+step="any"
+placeholder="Latitude">
+
+</div>
+
+<div>
+
+<label>
+Longitude
+</label>
+
+<input
+type="number"
+id="pointLon"
+step="any"
+placeholder="Longitude">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DMS -->
+
+<div id="pointDMSSection"
+style="display:none;">
+
+<label>
+Latitude DMS
+</label>
+
+<div class="dms-grid">
+
+<input type="number"
+id="pointLatDeg"
+placeholder="Deg">
+
+<input type="number"
+id="pointLatMin"
+placeholder="Min">
+
+<input type="number"
+id="pointLatSec"
+placeholder="Sec">
+
+<select
+id="pointLatDir"
+class="direction-select">
+
+<option>N</option>
+
+<option>S</option>
+
+</select>
+
+</div>
+
+<label>
+Longitude DMS
+</label>
+
+<div class="dms-grid">
+
+<input type="number"
+id="pointLonDeg"
+placeholder="Deg">
+
+<input type="number"
+id="pointLonMin"
+placeholder="Min">
+
+<input type="number"
+id="pointLonSec"
+placeholder="Sec">
+
+<select
+id="pointLonDir"
+class="direction-select">
+
+<option>E</option>
+
+<option>W</option>
+
+</select>
+
+</div>
+
+</div>
+
+<!-- UTM -->
+
+<div id="pointUTMSection"
+style="display:none;">
+
+<div class="utm-grid">
+
+<div>
+
+<label>
+UTM Zone
+</label>
+
+<select
+id="pointUTMZone"
+class="zone-select">
+
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+<option>10</option>
+<option>11</option>
+<option>12</option>
+<option>13</option>
+<option>14</option>
+<option>15</option>
+<option>16</option>
+<option>17</option>
+<option>18</option>
+<option>19</option>
+<option>20</option>
+<option>21</option>
+<option>22</option>
+<option>23</option>
+<option>24</option>
+<option>25</option>
+<option>26</option>
+<option>27</option>
+<option>28</option>
+<option>29</option>
+<option>30</option>
+<option>31</option>
+<option>32</option>
+<option>33</option>
+<option>34</option>
+<option>35</option>
+<option selected>36</option>
+<option>37</option>
+<option>38</option>
+<option>39</option>
+<option>40</option>
+<option>41</option>
+<option>42</option>
+<option>43</option>
+<option>44</option>
+<option>45</option>
+<option>46</option>
+<option>47</option>
+<option>48</option>
+<option>49</option>
+<option>50</option>
+<option>51</option>
+<option>52</option>
+<option>53</option>
+<option>54</option>
+<option>55</option>
+<option>56</option>
+<option>57</option>
+<option>58</option>
+<option>59</option>
+<option>60</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>
+Hemisphere
+</label>
+
+<select
+id="pointUTMHemisphere"
+class="hemisphere-select">
+
+<option selected>N</option>
+
+<option>S</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="utm-input-grid">
+
+<div>
+
+<label>
+Easting
+</label>
+
+<input
+type="number"
+id="pointEasting"
+placeholder="Easting">
+
+</div>
+
+<div>
+
+<label>
+Northing
+</label>
+
+<input
+type="number"
+id="pointNorthing"
+placeholder="Northing">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+<button onclick="addPoint()">
+
+<i class="fa-solid fa-plus"></i>
+
+Add Point
+
+</button>
+
+<button onclick="useCurrentGPS()">
+
+<i class="fa-solid fa-location-crosshairs"></i>
+
+GPS
+
+</button>
+
+<button onclick="clearSurvey()">
+
+<i class="fa-solid fa-trash"></i>
+
+Clear
+
+</button>
+
+<button onclick="exportCSV()">
+
+<i class="fa-solid fa-file-export"></i>
+
+Export CSV
+
+</button>
+
+</div>
+
+<!-- POINTS -->
+
+<div id="pointsList"
+class="points-list">
+
+No Points Added
+
+</div>
+
+<!-- RESULTS -->
+
+<div class="stats-grid">
+
+<div class="area-result">
+
+Area (m²)
+
+<strong id="areaMeters">
+
+0
+
+</strong>
+
+</div>
+
+<div class="area-result">
+
+Perimeter (m)
+
+<strong id="perimeterMeters">
+
+0
+
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MAP -->
+
+<div class="card">
+
+<div class="map-header">
+
+<h2>
+
+<i class="fa-solid fa-map"></i>
+
+Interactive GIS Map
+
+</h2>
+
+<button class="collapse-btn"
+onclick="toggleMap()">
+
+<i class="fa-solid fa-chevron-down"></i>
+
+</button>
+
+</div>
+
+<div class="map-controls">
+
+<button onclick="setStreetMap()">
+
+<i class="fa-solid fa-map"></i>
+
+Street
+
+</button>
+
+<button onclick="setSatelliteMap()">
+
+<i class="fa-solid fa-satellite"></i>
+
+Satellite
+
+</button>
+
+<button onclick="toggleDrawMode()">
+
+<i class="fa-solid fa-pencil"></i>
+
+Draw Mode
+
+</button>
+
+</div>
+
+<div id="mapContainer">
+
+<div id="map"></div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer-banner">
+
+<img
+src="assets/footer.png"
+alt="GeoPrecision Footer">
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
